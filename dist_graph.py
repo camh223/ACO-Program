@@ -40,4 +40,4 @@ def build_graph(file_name):
             dist[vert_no][edge_no] = convert_cost(edge.attrib['cost'])
             edge_no += 1
         vert_no += 1
-    return dist
+    return dist_size, dist
