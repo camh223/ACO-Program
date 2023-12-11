@@ -1,4 +1,5 @@
-import xml_read
+import dist_graph
 
 if __name__ == '__main__':
-    xml_read.read_file('brazil58.xml')
+    d = dist_graph.build_graph('burma14.xml')
+    print(d)
