@@ -1,7 +1,7 @@
-import dist_graph, pheromone
+import dist_graph, pheromone, ant_movement
 
 
-def gen_heuristic(d_size, d):
+def init_heuristic(d_size, d):
     # Initialise heuristic matrix with zeroes.
     H = [[0 for i in range(d_size)] for j in range(d_size)]
     for i in range(d_size):
@@ -13,7 +13,10 @@ def gen_heuristic(d_size, d):
 
 if __name__ == '__main__':
     num_ants = 5
+    alpha = 1
+    beta = 2
     d_size, d = dist_graph.build_graph('burma14.xml')
-    phero_map = pheromone.phero_init(d_size)
-    H = gen_heuristic(d_size, d)
-    print(H)
+    phero_mat = pheromone.phero_init(d_size)
+    H = init_heuristic(d_size, d)
+    ant_movement.ant_movement(H, phero_mat, d_size, alpha, beta)
+
