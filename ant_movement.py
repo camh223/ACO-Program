@@ -2,7 +2,7 @@ from random import random
 
 
 def update_heuristic(H, ant_pos, d_size):
-    H = [[H[i][j] if i != j and j != 0 else 0 for j in range(d_size)] for i in range(d_size)]
+    H = [[H[i][j] if i != j and j != ant_pos else 0 for j in range(d_size)] for i in range(d_size)]
     return H
 
 
@@ -13,7 +13,6 @@ def path_probability(H, phero_mat, d_size, alpha, beta, i):
     for j in range(d_size):
         result[j] = phero_mat[i][j] ** alpha * H[i][j] ** beta
         sum += result[j]
-
     for j in range(d_size):
         P[j] = result[j]/sum
     return P
@@ -32,10 +31,11 @@ def choose_path(P, d_size):
 def ant_movement(H, phero_mat, d_size, alpha, beta):
     # Initialise answer array
     ant_pos = 0
+    H = update_heuristic(H, ant_pos, d_size)
     i = 0
-    sum = 0
     P = path_probability(H, phero_mat, d_size, alpha, beta, i)
-    path = choose_path(P, d_size)
-    print(path)
-
+    ant_pos = choose_path(P, d_size)
+    H = update_heuristic(H, ant_pos, d_size)
+    print(ant_pos)
+    print('\n'.join([''.join(['{:10}'.format(round(item, 4)) for item in row]) for row in H]))
     return None
