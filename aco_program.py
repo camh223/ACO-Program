@@ -51,6 +51,7 @@ if __name__ == '__main__':
     e = 0.5
     Q = 1
     max_runs = 10000
-    file_name = 'brazil58.xml'
+    # Change with 'brazil58.xml' for brazil dataset
+    file_name = 'burma14.xml'
     best_fit = run_aco(num_ants, alpha, beta, e, Q, max_runs, file_name)
     print(best_fit)
