@@ -18,5 +18,5 @@ if __name__ == '__main__':
     d_size, d = dist_graph.build_graph('burma14.xml')
     phero_mat = pheromone.phero_init(d_size)
     H = init_heuristic(d_size, d)
-    ant_movement.ant_movement(H, phero_mat, d_size, alpha, beta)
+    ant_movement.ant_movement(H, phero_mat, d_size, alpha, beta, num_ants)
 

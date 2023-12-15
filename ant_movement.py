@@ -28,14 +28,18 @@ def choose_path(P, d_size):
     return i
 
 
-def ant_movement(H, phero_mat, d_size, alpha, beta):
-    # Initialise answer array
+def ant(H, phero_mat, d_size, alpha, beta):
     ant_pos = 0
     H = update_heuristic(H, ant_pos, d_size)
-    i = 0
-    P = path_probability(H, phero_mat, d_size, alpha, beta, i)
-    ant_pos = choose_path(P, d_size)
-    H = update_heuristic(H, ant_pos, d_size)
-    print(ant_pos)
-    print('\n'.join([''.join(['{:10}'.format(round(item, 4)) for item in row]) for row in H]))
+    for j in range(d_size - 1):
+        P = path_probability(H, phero_mat, d_size, alpha, beta, ant_pos)
+        ant_pos = choose_path(P, d_size)
+        H = update_heuristic(H, ant_pos, d_size)
+        print(ant_pos)
+        # print('\n'.join([''.join(['{:10}'.format(round(item, 4)) for item in row]) for row in H]))
+
+
+def ant_movement(H, phero_mat, d_size, alpha, beta, num_ants):
+    for i in range(num_ants):
+        ant(H, phero_mat, d_size, alpha, beta)
     return None
