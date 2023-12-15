@@ -18,13 +18,14 @@ def phero_evaporation(e, d_size, phero_mat):
     return phero_mat
 
 
-def phero_update(d, d_size, paths, phero_mat, num_ants, Q):
+def phero_update(d, d_size, paths, phero_mat, num_ants, Q, best_fit):
     for i in range(num_ants):
         cost = 0
         for j in range(d_size):
             cost += d[paths[i][j]][paths[i][j+1]]
-        print(cost)
+        if best_fit == -1 or cost < best_fit:
+            best_fit = cost
         for j in range(d_size):
             phero_mat[paths[i][j]][paths[i][j+1]] += Q/cost
             phero_mat[paths[i][j+1]][paths[i][j]] += Q/cost
-    return phero_mat
+    return phero_mat, best_fit

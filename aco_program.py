@@ -17,12 +17,16 @@ if __name__ == '__main__':
     beta = 2
     e = 0.5
     Q = 1
+    max_runs = 10000
+    runs = 0
+    best_fit = -1
     d_size, d = dist_graph.build_graph('burma14.xml')
     phero_mat = pheromone.phero_init(d_size)
-    print(phero_mat)
     H = init_heuristic(d_size, d)
-    paths = ant_movement.ant_movement(H, phero_mat, d_size, alpha, beta, num_ants)
-    phero_mat = pheromone.phero_update(d, d_size, paths, phero_mat, num_ants, Q)
-    print(phero_mat)
-    phero_mat = pheromone.phero_evaporation(e, d_size, phero_mat)
-    print(phero_mat)
+    while runs < max_runs:
+        paths = ant_movement.ant_movement(H, phero_mat, d_size, alpha, beta, num_ants)
+        phero_mat, best_fit = pheromone.phero_update(d, d_size, paths, phero_mat, num_ants, Q, best_fit)
+        phero_mat = pheromone.phero_evaporation(e, d_size, phero_mat)
+        # num_ants fitness evaluations occur per run
+        runs += num_ants
+    print(best_fit)
