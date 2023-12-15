@@ -30,16 +30,20 @@ def choose_path(P, d_size):
 
 def ant(H, phero_mat, d_size, alpha, beta):
     ant_pos = 0
+    path = [0] * (d_size + 1)
+    path[0] = ant_pos
+    path[d_size] = ant_pos
     H = update_heuristic(H, ant_pos, d_size)
-    for j in range(d_size - 1):
+    for j in range(1, d_size):
         P = path_probability(H, phero_mat, d_size, alpha, beta, ant_pos)
         ant_pos = choose_path(P, d_size)
         H = update_heuristic(H, ant_pos, d_size)
-        print(ant_pos)
+        path[j] = ant_pos
+        # print(ant_pos)
         # print('\n'.join([''.join(['{:10}'.format(round(item, 4)) for item in row]) for row in H]))
+    return path
 
 
 def ant_movement(H, phero_mat, d_size, alpha, beta, num_ants):
-    for i in range(num_ants):
-        ant(H, phero_mat, d_size, alpha, beta)
-    return None
+    paths = [ant(H, phero_mat, d_size, alpha, beta) for i in range(num_ants)]
+    return paths
