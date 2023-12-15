@@ -10,14 +10,7 @@ def init_heuristic(d_size, d):
                 H[i][j] = 1/d[i][j]
     return H
 
-
-if __name__ == '__main__':
-    num_ants = 5
-    alpha = 1
-    beta = 2
-    e = 0.5
-    Q = 1
-    max_runs = 10000
+def run_aco(num_ants, alpha, beta, e, Q, max_runs, file_name, ):
     runs = 0
     best_fit = -1
     d_size, d = dist_graph.build_graph('burma14.xml')
@@ -29,4 +22,16 @@ if __name__ == '__main__':
         phero_mat = pheromone.phero_evaporation(e, d_size, phero_mat)
         # num_ants fitness evaluations occur per run
         runs += num_ants
+    return best_fit
+
+
+if __name__ == '__main__':
+    num_ants = 5
+    alpha = 1
+    beta = 2
+    e = 0.5
+    Q = 1
+    max_runs = 10000
+    file_name = 'burma14.xml'
+    best_fit = run_aco(num_ants, alpha, beta, e, Q, max_runs, file_name)
     print(best_fit)
