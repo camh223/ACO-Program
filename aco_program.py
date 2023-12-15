@@ -10,10 +10,11 @@ def init_heuristic(d_size, d):
                 H[i][j] = 1/d[i][j]
     return H
 
-def run_aco(num_ants, alpha, beta, e, Q, max_runs, file_name, ):
+
+def run_aco(num_ants, alpha, beta, e, Q, max_runs, file_name):
     runs = 0
     best_fit = -1
-    d_size, d = dist_graph.build_graph('burma14.xml')
+    d_size, d = dist_graph.build_graph(file_name)
     phero_mat = pheromone.phero_init(d_size)
     H = init_heuristic(d_size, d)
     while runs < max_runs:
@@ -32,6 +33,6 @@ if __name__ == '__main__':
     e = 0.5
     Q = 1
     max_runs = 10000
-    file_name = 'burma14.xml'
+    file_name = 'brazil58.xml'
     best_fit = run_aco(num_ants, alpha, beta, e, Q, max_runs, file_name)
     print(best_fit)
